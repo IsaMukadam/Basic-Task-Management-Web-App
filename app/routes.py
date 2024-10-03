@@ -1,24 +1,16 @@
-from flask import Blueprint, jsonify, request, render_template
-from .models import db, Task
+from flask import render_template, request, redirect, url_for
+from . import db, app  # Import the app instance here
+from .models import Task
 
-tasks_bp = Blueprint('tasks', __name__)
-
-@tasks_bp.route('/')
+@app.route("/", methods=["GET", "POST"])
 def home():
-    tasks = Task.query.all()  # Retrieve all tasks from the database
-    return render_template('home.html', tasks=tasks)
+    if request.method == "POST":
+        task_content = request.form.get("task")
+        if task_content:
+            new_task = Task(content=task_content)
+            db.session.add(new_task)
+            db.session.commit()
+            return redirect(url_for("home"))
 
-@tasks_bp.route('/tasks', methods=['POST'])
-def add_task():
-    task_name = request.json.get('task')
-    if task_name:
-        new_task = Task(name=task_name)
-        db.session.add(new_task)
-        db.session.commit()
-        return jsonify({'task': new_task.name}), 201
-    return jsonify({'error': 'Task cannot be empty'}), 400
-
-@tasks_bp.route('/tasks', methods=['GET'])
-def get_tasks():
-    tasks = Task.query.all()  # Retrieve all tasks
-    return jsonify([{'id': task.id, 'name': task.name} for task in tasks])
+    tasks = Task.query.all()
+    return render_template("home.html", tasks=tasks)

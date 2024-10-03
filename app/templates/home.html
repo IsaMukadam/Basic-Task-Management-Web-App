@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Task Manager</title>
 </head>
 <body>
     <div class="container">
         <h1>Task Manager</h1>
-        <div class="input-group">
-            <input type="text" id="task-input" placeholder="Enter your task here..." />
-            <button id="add-task">Add Task</button>
-        </div>
-        <div id="task-container">
-            <ul id="task-list" class="list-group"></ul>
+        <form action="/" method="POST">
+            <input type="text" name="task" placeholder="Enter your task here..." required>
+            <button type="submit">Add Task</button>
+        </form>
+        <div class="task-list">
+            {% for task in tasks %}
+                <div class="task-box">
+                    <p>{{ task.content }}</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
-    <footer>
-        <p style="text-align: center">&copy; 2024 Task Manager App</p>
-    </footer>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 </html>
