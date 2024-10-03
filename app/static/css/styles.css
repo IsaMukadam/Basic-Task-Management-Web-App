@@ -35,14 +35,14 @@ input[type="text"] {
 button {
     padding: 10px;
     border: none;
-    background-color: #28a745;
+    background-color: #28a745; /* Green background for submit button */
     color: white;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #218838; /* Darker green on hover */
 }
 
 .task-list {
@@ -55,4 +55,34 @@ button:hover {
     padding: 10px;
     margin: 5px 0;
     border-radius: 4px;
+    display: flex; /* Use flexbox for task box */
+    justify-content: space-between; /* Space out content */
+    align-items: center; /* Center vertically */
+}
+
+.task-content {
+    flex-grow: 1; /* Allow text to take remaining space */
+    display: flex; /* Use flexbox for task content */
+    justify-content: space-between; /* Space out text and button */
+    align-items: center; /* Center content vertically */
+    height: 100%; /* Full height for vertical centering */
+}
+
+.task-content p {
+    margin: 0; /* Remove default margin from the paragraph */
+    line-height: 30px; /* Set line height for vertical centering */
+}
+
+.delete-btn {
+    background-color: red; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 15px; /* Similar padding to submit button */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    margin-top: 20px;
+}
+
+.delete-btn:hover {
+    background-color: darkred; /* Darker red on hover */
 }

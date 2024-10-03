@@ -13,13 +13,20 @@
             <input type="text" name="task" placeholder="Enter your task here..." required>
             <button type="submit">Add Task</button>
         </form>
+
         <div class="task-list">
             {% for task in tasks %}
                 <div class="task-box">
-                    <p>{{ task.content }}</p>
+                    <div class="task-content">
+                        <p>{{ task.content }}</p>
+                        <form action="/delete/{{ task.id }}" method="POST" style="display: inline;">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </div>
                 </div>
             {% endfor %}
         </div>
+        
     </div>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
